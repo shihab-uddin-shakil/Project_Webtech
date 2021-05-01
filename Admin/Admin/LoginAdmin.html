@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>adminlogin</title>
+</head>
+
+<body>
+
+    <h1>Admin Login</h1>
+
+    <label for="username">Username:</label>
+    <input type="text" name="username" id="username">
+
+    <br><br>
+
+    <label for="password">Password:</label>
+    <input type="password" name="password" id="password">
+
+    <br><br>
+
+    <button id="submit" onclick="submit()">Submit</button>
+
+    <p id="p1"></p>
+    <p id="errorMsg">
+
+    </p>
+    <br>
+
+
+
+    <script>
+        function submit() {
+
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+
+            if (username == "" || password == "") {
+                document.getElementById("p1").innerHTML = "Fill up the form properly";
+                document.getElementById("p1").style.color = "red";
+            } else {
+
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        document.getElementById("p1").innerHTML = xhttp.responseText;
+                        document.getElementById("p1").style.color = "green";
+                    }
+                }
+
+
+                xhttp.open("POST", "http://localhost/Admin/login process.php", true);
+                xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhttp.send("username=" + username + "&password=" + password);
+                // if (SESSION["userid"] == username && SESSION["pass"] == password) {
+                //     window.location.replace('http://localhost/Admin/Admin.php');
+                // } else {
+
+                //     document.getElementById("p1").innerHTML = "invalid user or password";
+                //     document.getElementById("p1").style.color = "red";
+                // }
+            }
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,1 @@
+{"address":"dhaka,bangladesh","contact":"01713994459","birth":"2021-03-07","religon":"islam","nid":"6012254758"}

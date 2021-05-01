@@ -1,0 +1,1 @@
+{"userId":"uddin","password":"111","fname":"prithibi","lname":"Uddin","email":"shihabuddinshakil9@gmail.com","gender":null,"accountType":"patient"}

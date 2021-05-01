@@ -7,17 +7,7 @@
 
 <body>
 
-    <?php 
-    $file2 = fopen("C:/xampp/htdocs/Doctor/doctor.txt", "r");
-    $read = fread($file2, filesize("C:/xampp/htdocs/Doctor/doctor.txt"));
-    fclose($file2);
 
-    $json_decoded_text = json_decode($read, true);
-    $name=$json_decoded_text['fname']. "  ".$json_decoded_text['lname'];
-    $schedule=$json_decoded_text['schedule'];
-    $dtype= $json_decoded_text['doctorType'];
-
-	?>
     <header>
         <header>
 
@@ -29,31 +19,81 @@ include('header.php');
 
     </header>
     <div>
-        <br>
+
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <div>
         <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for doctors..."
             title="Type in a name">
         <br><br>
+        <?php
+       
+           $host = "localhost";
+           $user = "wta_user_1";
+           $pass = "123";
+            $db = "wta";
 
+ // Mysqli object-oriented
+            $conn1 = new mysqli($host, $user, $pass, $db);
+         
+             if($conn1->connect_error) {
+                 $Erre= "Database Connection Failed!";
+                 echo "<br>";
+                 echo $conn1->connect_error;
+             }
+             else {
+         
+                 $sql = "select  fname, lname,email,username,category,schedule from DoctorSignup";
+                 $res1 = $conn1->query($sql);
+                 if($res1->num_rows > 0) {
+?>
         <table id="myTable">
             <tr class="header">
+
                 <th> #Name</th>
                 <th>Schedule</th>
                 <th>Doctor Type</th>
+                <th>Email</th>
+
+
 
             </tr>
 
-
+            <?php
+			$i=0;
+			while($row = mysqli_fetch_array($res1)) {
+			?>
 
             <tr>
-                <td><?php echo $name; ?></td>
-                <td><?php echo $schedule; ?></td>
-                <td><?php echo $dtype; ?></td>
+
+                <td><?php echo $row['fname']." ".$row['lname']; ?></td>
+                <td><?php echo$row['schedule']; ?></td>
+                <td><?php echo $row['category']; ?></td>
+                <td><?php echo $row['email']; ?></td>
+
+
             </tr>
 
-
+            <?php
+			$i++;
+		     	}
+         
+        
+			?>
         </table>
+        <?php
+  }
+}
+$conn1->close();
+
+?>
 
     </div>
+    <br>
     <footer>
         <?php 
     
